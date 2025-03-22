@@ -22,10 +22,10 @@ string inventoryStatus , productName ;
 
 // these functions use global variables which can be accessed without being parameter
 
-void helloppl();
+void userInput();
 void calculations (); 
 void receipt();
-void finally();
+void finalInformation();
 
 
 
@@ -33,16 +33,16 @@ void finally();
 int main(){
     std::cout << "THIS IS A PROGRAM TO CALCUALTE YOUR TAX." <<endl;
     std::cout << "THIS IS COMPILED IN C PLUS PLUS." <<endl;
-    helloppl();
+    userInput();
     calculations( );
     receipt();
-    finally();
+    finalInformation();
 
     return 0;
 }
 
 
-void helloppl(){
+void userInput(){
     // accepts product name , category ,  initial inventory , price , sold items
     string sellingConfirmation;
     std::cout << "Product name : " ;
@@ -86,21 +86,22 @@ void calculations(){
 
 void receipt(){
     cout <<"RECEIPT FOR EACH ITEM SOLD" <<endl;
+    auto copyOfInitialInventory = initialInventory;
+    const float taxRatte = 0.15;
     for ( int i =  1; i <= numOfSoldItems ; i++){
-        cout << " \t Item number : " << i  << endl;
+        cout << "Item number : " << i  << endl;
         cout << " \t Price : " << pricePerUnit << endl;
-        float taxFromEach = TAX_RATE * pricePerUnit;
+        float taxFromEach = taxRatte * pricePerUnit;
         cout << " \t Tax from sales : " << taxFromEach  << endl;
         float profit =  pricePerUnit - taxFromEach;
         cout <<" \t Profit from this sale : " << profit << endl;
-        auto copyOfInitialInventory = initialInventory;
         cout <<" \t Remaining Items : " << --copyOfInitialInventory <<endl;
         (copyOfInitialInventory > 10) ? inventoryStatus = "Sufficient inventory" : inventoryStatus ="Low Inventory";
         cout << inventoryStatus  <<endl;
     }
 }
 
-void finally (){
+void finalInformation (){
     cout <<'\n' <<endl;
     cout << "FINAL INFORMATION";
     cout << "Product Name : " << productName <<endl;
@@ -126,11 +127,11 @@ void finally (){
         }
 
     cout <<"Product Name : " << productName <<endl;
-    cout << "Tax from total sales : " << tax  <<endl;
-    cout << "Profit from total sales : " << totalSales - tax <<endl;
     cout <<"Initial Inventory : " <<initialInventory <<endl;
     cout << "Price per unit : "  << pricePerUnit <<endl;
     cout << "Items sold : "  << numOfSoldItems <<endl;
     cout << "New Inventory : " << currentInventory  <<endl;
+    cout << "Tax from total sales : " << tax  <<endl;
     cout << "Inventory Status : " << inventoryStatus;
+    cout << "Profit from total sales : " << totalSales - tax <<endl;
 }
